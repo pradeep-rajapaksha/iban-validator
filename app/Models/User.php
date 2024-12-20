@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function ibans()
+    {
+        return $this->hasMany('App\Models\Iban');
+    }
 }
