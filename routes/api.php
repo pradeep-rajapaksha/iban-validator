@@ -24,4 +24,10 @@ Route::middleware('auth:sanctum')->get('/auth/user', function (Request $request)
 Route::middleware(['auth:sanctum'])->group(function () {
     // Logout route
     Route::post('/auth/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+    
+    Route::get('/iban', [\App\Http\Controllers\Api\IbanController::class, 'index']);
+    Route::get('/iban/{iban}', [\App\Http\Controllers\Api\IbanController::class, 'show']);
+    Route::delete('/iban/{iban}', [\App\Http\Controllers\Api\IbanController::class, 'destroy']);
+    Route::put('/iban/{iban}', [\App\Http\Controllers\Api\IbanController::class, 'update']);
+    Route::post('/iban', [\App\Http\Controllers\Api\IbanController::class, 'store']);
 });
