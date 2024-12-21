@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Iban;
+use App\Rules\ValidIBAN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class IbanController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    */
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $user = $request->user();
@@ -25,43 +27,55 @@ class IbanController extends Controller
     }
     
     /**
-    * Store a newly created resource in storage.
-    */
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'iban' => 'required|string',
-        ]);
-        
-        $iban = strtoupper(str_replace(' ', '', $request->iban));
-        
-        $ibanRecord = Iban::create([
-            'iban_number' => $iban,
-            'user_id' => auth()->id(),
-        ]);
+        $validator = Validator::make($request->all(), [
+                            'iban' => ['required', 'string', new ValidIBAN],
+                        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                        "errors" => $validator->errors()
+                    ], 422);
+        }
+
+        $user = $request->user();
+        $iban_number = strtoupper(str_replace(' ', '', $request->iban));
+        $iban = Iban::create([
+                            'iban_number' => $iban_number,
+                            'user_id' => $user->id,
+                        ]);
         
         return response()->json([
-            'message' => 'IBAN is valid and saved.',
-            'iban' => $ibanRecord,
-        ], 201);
+                    'message' => 'IBAN saved successfully.',
+                    'iban' => $iban,
+                ], 201);
     }
 
     /**
-    * Display the specified resource.
-    */
+     * Display the specified resource.
+     */
     public function show(Iban $iban)
     {
         return response()->json($iban);
     }
 
     /**
-    * Update the specified resource in storage.
-    */
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Iban $iban)
     {
-        $request->validate([
-            'iban' => 'required|string',
-        ]);
+        $validator = Validator::make($request->all(), [
+                            'iban' => ['required', 'string', new ValidIBAN],
+                        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    "errors" => $validator->errors()
+                ], 422);
+        }
         
         $iban->iban_number = strtoupper(str_replace(' ', '', $request->iban));
         $iban->save();
@@ -73,8 +87,8 @@ class IbanController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    */
+     * Remove the specified resource from storage.
+     */
     public function destroy(Iban $iban)
     {
         $iban->delete();
