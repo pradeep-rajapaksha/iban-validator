@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h1>Enter IBAN</h1>
+        <h1>Validate IBAN</h1>
         <form @submit.prevent="validateIban">
             <input v-model="iban" type="text" placeholder="IBAN" required />
-            <button type="submit">Validate</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
 </template>
@@ -18,12 +18,19 @@ export default {
     methods: {
         async validateIban() {
             try {
-                const response = await axios.post('/api/iban', {
-                    iban: this.iban
-                });
-                alert(response.data.message);
+                const token = localStorage.getItem('access_token');
+                console.log(token, this.iban);
+                let data = {iban: this.iban};
+                let headers = {
+                    'Authorization': `Bearer ${token}`
+                };
+
+                await axios.post('/api/iban', data, {headers});
+                
+                alert('The IBAN is valid & saved successfully');
             } catch (error) {
-                alert(error.response.data.message);
+                alert('IBAN validation failed. Please try again.');
+                console.error('IBAN validation failed:', error);
             }
         }
     }

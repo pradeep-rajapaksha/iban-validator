@@ -24,7 +24,7 @@ export default {
     methods: {
         async register() {
             try {
-                await axios.post('/api/register', {
+                await axios.post('/api/auth/register', {
                     name: this.name,
                     email: this.email,
                     password: this.password,
@@ -32,6 +32,7 @@ export default {
                 });
                 this.$router.push('/login');
             } catch (error) {
+                alert('Registration failed. Please check your details and try again.');
                 console.error('Registration failed:', error);
             }
         }
