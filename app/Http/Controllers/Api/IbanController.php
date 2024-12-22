@@ -16,11 +16,12 @@ class IbanController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $perpage = 3;
 
         if ($user->isAdmin()) {
-            $ibans = Iban::with('user')->paginate(10);
+            $ibans = Iban::with('user')->paginate($perpage);
         } else {
-            $ibans = Iban::with('user')->where('user_id', $user->id)->paginate(10);
+            $ibans = Iban::with('user')->where('user_id', $user->id)->paginate($perpage);
         }
         
         return response()->json($ibans);
