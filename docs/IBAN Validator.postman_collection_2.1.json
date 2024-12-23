@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "994bcc6e-a12d-4087-b52a-06092c5e9647",
+		"name": "IBAN Validator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38914300"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@iban-validator.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://iban-validator.test/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iban list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2|GRLXJaYjrXMMhMomLKUHWhGoZU2SgczHnEaZhQz62b242b3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://iban-validator.test/api/iban",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"iban"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iban {id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2|GRLXJaYjrXMMhMomLKUHWhGoZU2SgczHnEaZhQz62b242b3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://iban-validator.test/api/iban/1",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"iban",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iban create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "54|GhPvCHtFrDTmC6cMWf4waOl4Je6wDOoBCBvNjP752336c211",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"iban\": \"TN5904018104004942712345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://iban-validator.test/api/iban",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"iban"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iban {id} update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2|GRLXJaYjrXMMhMomLKUHWhGoZU2SgczHnEaZhQz62b242b3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"iban\": \"AL35202111090000000001234588\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://iban-validator.test/api/iban/1",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"iban",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iban {id} delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2|GRLXJaYjrXMMhMomLKUHWhGoZU2SgczHnEaZhQz62b242b3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"iban\": \"AL35202111090000000001234588\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://iban-validator.test/api/iban/1",
+					"protocol": "http",
+					"host": [
+						"iban-validator",
+						"test"
+					],
+					"path": [
+						"api",
+						"iban",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
